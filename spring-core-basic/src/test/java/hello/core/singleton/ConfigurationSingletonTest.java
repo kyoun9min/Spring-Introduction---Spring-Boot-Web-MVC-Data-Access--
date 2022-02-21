@@ -4,7 +4,9 @@ import static org.assertj.core.api.Assertions.*;
 
 import hello.core.AppConfig;
 import hello.core.member.MemberRepository;
+import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
+import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,5 +32,13 @@ public class ConfigurationSingletonTest {
 
         assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
+    }
+
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass());
     }
 }
